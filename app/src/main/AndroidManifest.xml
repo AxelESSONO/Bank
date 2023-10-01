@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Bank"
         tools:targetApi="31">
         <activity
-            android:name=".AccountListActivity"
+            android:name=".presentation.activity.AccountListActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".presentation.activity.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
