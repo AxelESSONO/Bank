@@ -1,7 +1,8 @@
 package com.axel.bank.domain.model
 
 data class Bank(
-    val name : String,
-    val balance : Double,
-    val account: List<Account>
+    val name: String?,
+    val accounts: List<Account>?,
+    val title : String,
+    var header : Boolean = false
 )
