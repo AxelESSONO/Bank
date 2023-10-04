@@ -19,7 +19,8 @@
         android:layout_margin="20dp"
         android:padding="10dp"
         android:layout_gravity="start"
-        android:background="@drawable/circular_bg"/>
+        android:background="@drawable/circular_bg"
+        app:tint="@color/header_color" />
 
     <TextView
         android:id="@+id/balanceText"

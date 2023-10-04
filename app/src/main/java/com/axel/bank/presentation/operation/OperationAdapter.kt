@@ -1,18 +1,24 @@
 package com.axel.bank.presentation.operation
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.axel.bank.R
+import com.axel.bank.databinding.OperationItemBinding
 import com.axel.bank.domain.model.Operation
+import com.axel.bank.util.getDateTime
 
 class OperationAdapter(private val operations : List<Operation>) : RecyclerView.Adapter<OperationAdapter.OperationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OperationViewHolder {
-        val view : View = LayoutInflater.from(parent.context).inflate(R.layout.operation_item, parent, false)
-        return OperationViewHolder(view)
+
+        val binding = OperationItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        return OperationViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: OperationViewHolder, position: Int) {
@@ -23,15 +29,14 @@ class OperationAdapter(private val operations : List<Operation>) : RecyclerView.
         return operations.size
     }
 
-    class OperationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        private val operationTitle : TextView = view.findViewById(R.id.operationTitle)
-        private val operationDate : TextView = view.findViewById(R.id.operationDate)
-        private val operationAmount : TextView = view.findViewById(R.id.operationAmount)
+    class OperationViewHolder(private val binding: OperationItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bindView(operation: Operation){
-            operationTitle.text = operation.title
-            operationDate.text = operation.date
-            operationAmount.text = operation.amount
+            binding.operationTitle.text = operation.title
+            binding.operationDate.text = getDateTime(operation.date)
+
+                //operation.date
+            binding.operationAmount.text = "${operation.amount} euros"
         }
     }
 }

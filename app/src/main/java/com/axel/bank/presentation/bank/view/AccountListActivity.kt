@@ -40,7 +40,7 @@ class AccountListActivity : AppCompatActivity() {
         setUpTheRecyclerView()
         callAPI()
 
-        binding.bankRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        /*binding.bankRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (bankLayoutManager.findLastVisibleItemPosition() == bankLayoutManager.itemCount - 1) {
@@ -49,14 +49,14 @@ class AccountListActivity : AppCompatActivity() {
                     callAPI()
                 }
             }
-        })
+        })*/
     }
 
     private fun setUpTheRecyclerView() {
 
         bankLayoutManager = LinearLayoutManager(this)
         bankLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        bankAdapter = BankAdapter(ArrayList())
+        bankAdapter = BankAdapter(this ,ArrayList())
         binding.bankRecycler.apply {
             layoutManager = bankLayoutManager
             adapter = bankAdapter

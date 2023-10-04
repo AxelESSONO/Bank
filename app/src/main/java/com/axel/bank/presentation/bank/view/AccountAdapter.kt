@@ -1,5 +1,6 @@
 package com.axel.bank.presentation.bank.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.axel.bank.R
+import com.axel.bank.databinding.AccountItemBinding
 import com.axel.bank.domain.model.Account
 import com.axel.bank.presentation.operation.OperationActivity
 import com.google.gson.Gson
@@ -15,8 +17,10 @@ import com.google.gson.Gson
 class AccountAdapter(private val accounts : List<Account>?) : RecyclerView.Adapter<AccountAdapter.AccountViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.account_item, parent, false)
-        return AccountViewHolder(view)
+
+        val binding = AccountItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return AccountViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -27,21 +31,18 @@ class AccountAdapter(private val accounts : List<Account>?) : RecyclerView.Adapt
         accounts?.let { holder.bindView(it[position]) }
     }
 
-    inner class AccountViewHolder(view : View) : RecyclerView.ViewHolder(view) {
+    inner class AccountViewHolder(private val binding: AccountItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private val accountTitle: TextView = view.findViewById(R.id.accountTitle)
-        private val amountAccountText: TextView = view.findViewById(R.id.amountAccountText)
-        private val operationButton: ImageView = view.findViewById(R.id.operationButton)
-
+        @SuppressLint("SetTextI18n")
         fun bindView(account: Account){
-            accountTitle.text = account.title
-            amountAccountText.text = account.balance.toString()
-            operationButton.setOnClickListener {
-                val operationIntent = Intent(operationButton.context, OperationActivity::class.java)
+            binding.accountTitle.text = account.title
+            binding.amountAccountText.text = "${account.balance} euros"
+            binding.operationButton.setOnClickListener {
+                val operationIntent = Intent(binding.operationButton.context, OperationActivity::class.java)
                 operationIntent.putExtra("OPERATIONS", Gson().toJson(account.operations.sortedBy { it.date }))
                 operationIntent.putExtra("AMOUNT", account.balance)
                 operationIntent.putExtra("TITLE", account.title)
-                operationButton.context.startActivity(operationIntent)
+                binding.operationButton.context.startActivity(operationIntent)
             }
         }
     }

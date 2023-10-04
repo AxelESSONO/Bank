@@ -3,4 +3,6 @@
     <string name="mes_comptes">Mes Comptes</string>
     <string name="bank_name">Bank Name</string>
     <string name="account_title">Account Title</string>
+    <string name="header">Header</string>
+    <string name="operation_title">Operation title</string>
 </resources>

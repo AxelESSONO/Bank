@@ -4,28 +4,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_marginBottom="5dp">
+    android:layout_height="80dp"
+    android:layout_marginBottom="2dp">
 
-    <TextView
-        android:id="@+id/operationTitle"
+    <LinearLayout
+        android:id="@+id/linearOperation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginStart="20dp"
-        android:text="Operation title"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/operationDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="01/07/2019"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/operationTitle"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/operationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/operation_title"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_extra_bold"
+            android:textColor="@color/header_color"
+            android:includeFontPadding="false"/>
+
+        <TextView
+            android:id="@+id/operationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="01/07/2019"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/header_color"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/operationAmount"
@@ -33,8 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="1200"
-        app:layout_constraintTop_toTopOf="@id/operationTitle"
-        app:layout_constraintBottom_toBottomOf="@id/operationDate"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="16sp"
+        android:textColor="@color/header_color"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toTopOf="@id/linearOperation"
+        app:layout_constraintBottom_toBottomOf="@id/linearOperation"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
