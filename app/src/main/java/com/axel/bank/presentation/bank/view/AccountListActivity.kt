@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -67,7 +68,7 @@ class AccountListActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             bankViewModel.getAllBank()
             bankViewModel._bankValue.collectLatest { bankListValue ->
-                CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.Main){
 
                     if (bankListValue.isLoading) {
                         binding.progressCircular.visibility = View.VISIBLE
