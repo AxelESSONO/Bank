@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.axel.bank.databinding.ActivityOperationBinding
 import com.axel.bank.domain.model.Operation
 import com.axel.bank.presentation.bank.view.AccountListActivity
-import com.axel.bank.util.convertJsonListToListOperation
 
 class OperationActivity : AppCompatActivity() {
 
@@ -25,7 +24,7 @@ class OperationActivity : AppCompatActivity() {
         operationLinearLayoutManager = LinearLayoutManager(this)
         operationLinearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        val operations :  List<Operation> = convertJsonListToListOperation("OPERATIONS")
+        val operations :  List<Operation> = intent.getSerializableExtra("OPERATIONS") as List<Operation>
         val amount = intent.getDoubleExtra("AMOUNT", 0.0)
         val title = intent.getStringExtra("TITLE")
 
@@ -34,7 +33,8 @@ class OperationActivity : AppCompatActivity() {
                 Intent(this, AccountListActivity::class.java )
             )
         }
-        operationAdapter = OperationAdapter(operations.sortedBy { it.title })
+
+        operationAdapter = OperationAdapter(operations)
         binding.balanceText.text = "$amount euros"
         binding.accountTitle.text = title
 

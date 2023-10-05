@@ -10,5 +10,5 @@ fun totalBalance(accounts: List<Account>?): Double? {
     decimalFormat.roundingMode = RoundingMode.DOWN
 
     val roundBalance = decimalFormat.format(sumBalance)
-    return roundBalance.toDouble()
+    return sumBalance
 }

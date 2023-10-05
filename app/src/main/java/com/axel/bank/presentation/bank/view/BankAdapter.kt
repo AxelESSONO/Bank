@@ -5,9 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +14,6 @@ import com.axel.bank.R
 import com.axel.bank.databinding.BankHeaderBinding
 import com.axel.bank.databinding.BankItemBinding
 import com.axel.bank.domain.model.Bank
-import com.axel.bank.util.StickyHeaderItemDecoration
 import com.axel.bank.util.StickyHeaderItemDecoration.*
 import com.axel.bank.util.totalBalance
 import com.bumptech.glide.Glide
@@ -74,7 +71,7 @@ class BankAdapter(private val context: Context, private var banks : ArrayList<Ba
         fun bindBankItem(context: Context, bank: Bank){
 
             binding.bankAccountTitle.text = bank.title
-            binding.amountBankText.text = "${totalBalance(bank.accounts)} euros"
+            binding.amountBankText.text = "${totalBalance(bank.accounts)?.toLong()} euros"
             accountAdapter = AccountAdapter(bank.accounts)
             accountManager.orientation = LinearLayoutManager.VERTICAL
             binding.accountRecycler.apply {
