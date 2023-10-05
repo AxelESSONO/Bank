@@ -32,7 +32,6 @@ data class BankDTOItem(
 
         return Bank(
             name = if (toBooleanValue(isCA)) Constants.CREDIT_AGRICOLE_STICKY else Constants.OTHER_BANKS,
-            //isCA = toBooleanValue(isCA),
             accounts = accounts,
             title = name
         )

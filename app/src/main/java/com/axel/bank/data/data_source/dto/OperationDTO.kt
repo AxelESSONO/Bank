@@ -9,7 +9,7 @@ data class OperationDTO(
 
     @SerializedName("category") val category: String,
 
-    @SerializedName("date") val date: String,
+    @SerializedName("date") val date: Long,
 
     @SerializedName("id") val id: String,
 

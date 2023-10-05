@@ -33,9 +33,7 @@ class OperationAdapter(private val operations : List<Operation>) : RecyclerView.
         @SuppressLint("SetTextI18n")
         fun bindView(operation: Operation){
             binding.operationTitle.text = operation.title
-            binding.operationDate.text = getDateTime(operation.date)
-
-                //operation.date
+            binding.operationDate.text = getDateTime(operation.date.toString())
             binding.operationAmount.text = "${operation.amount} euros"
         }
     }

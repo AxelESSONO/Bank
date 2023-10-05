@@ -1,8 +1,7 @@
 package com.axel.bank.domain.use_case
 
-import android.util.Log
-import com.axel.bank.domain.model.Account
 import com.axel.bank.domain.model.Bank
+import com.axel.bank.domain.model.Operation
 import com.axel.bank.domain.repository.BankRepository
 import com.axel.bank.util.BankResponseState
 import com.axel.bank.util.Constants
@@ -18,35 +17,15 @@ class BankListUseCase @Inject constructor(
     operator fun invoke() : Flow<BankResponseState<List<Bank>>> = flow {
         try {
             emit(BankResponseState.Loading<List<Bank>>())
-            var banks = repository.getAllBanks().map {it.toBank() }
-            emit(BankResponseState.Success<List<Bank>>(groupBanksCaAndOther(banks)))
+            val banks = repository.getAllBanks().map {it.toBank() }
+            emit(BankResponseState.Success<List<Bank>>(
+                groupBanksCaAndOther(banks))
+            )
         }catch (e : HttpException){
             emit(BankResponseState.Error<List<Bank>>(e.localizedMessage ?: "An Unexpected Error"))
         }catch (e : IOException){
             emit(BankResponseState.Error<List<Bank>>("Internet Error"))
         }
-    }
-
-    private fun getFirstCreditAgricolePosition(banks : List<Bank>) : Int{
-        var positionCA = 0
-        banks.forEachIndexed { index, bank ->
-            if (bank.name == Constants.CREDIT_AGRICOLE_STICKY){
-                positionCA = index
-                return positionCA
-            }
-        }
-        return -1
-    }
-
-    private fun getFirstOtherBank(banks : List<Bank>) : Int{
-        var positionCA = 0
-        banks.forEachIndexed { index, bank ->
-            if (bank.name == Constants.OTHER_BANKS){
-                positionCA = index
-                return positionCA
-            }
-        }
-        return -1
     }
 
     private fun groupBanksCaAndOther(banks: List<Bank>): List<Bank> {
@@ -71,8 +50,6 @@ class BankListUseCase @Inject constructor(
 
         caBanks.addAll(banks.filter { it.name == Constants.CREDIT_AGRICOLE_STICKY }.toMutableList())
         otherBanks.addAll(banks.filter { it.name == Constants.OTHER_BANKS }.toMutableList())
-
-
 
         return merge(
             sortBankAccountByAlphabeticalOrder(caBanks),
